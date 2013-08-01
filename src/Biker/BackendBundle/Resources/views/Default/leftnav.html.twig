@@ -1,0 +1,19 @@
+{% block leftnav %}
+<ul class="leftnav">
+	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_Analytics_show' %}class="current"{% endif %}>
+		<a href="{{ url('BikerBackendBundle_Analytics_show') }}">Users</a>
+	</li>
+	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_User_show' %}class="current"{% endif %}>
+		<a href="{{ url('BikerBackendBundle_User_show') }}">Users</a>
+	</li>
+	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_Booking_show' %}class="current"{% endif %}>
+		<a href="{{ url('BikerBackendBundle_Booking_show') }}">Bookings</a>
+	</li>
+	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_Orders_show' %}class="current"{% endif %}>
+		<a href="{{ url('BikerBackendBundle_Orders_show') }}">Orders</a>
+	</li>
+	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_Language_show' %}class="current"{% endif %}>
+		<a href="{{ url('BikerBackendBundle_Language_show') }}">Language</a>
+	</li>
+</ul>
+{% endblock %}

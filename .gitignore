@@ -1,0 +1,10 @@
+vendor
+
+cache
+logs
+
+/.buildpath
+/.project
+
+.idea
+.settings

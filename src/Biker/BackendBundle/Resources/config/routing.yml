@@ -1,0 +1,51 @@
+biker_backend_homepage:
+    pattern:  /
+    defaults: { _controller: BikerBackendBundle:Default:index }
+    
+BikerBackendBundle_Dashboard:
+    resource:   "@BikerBackendBundle/Resources/config/routes/dashboard.yml"
+    prefix:   /dashboard
+
+BikerBackendBundle_Menu:
+    resource:   "@BikerBackendBundle/Resources/config/routes/menu.yml"
+    prefix:   /menu
+
+BikerBackendBundle_Loyalty:
+    resource:   "@BikerBackendBundle/Resources/config/routes/loyalty.yml"
+    prefix:   /loyalty
+    
+BikerBackendBundle_Coupons:
+    resource:   "@BikerBackendBundle/Resources/config/routes/coupons.yml"
+    prefix:   /coupons
+
+BikerBackendBundle_News:
+    resource:   "@BikerBackendBundle/Resources/config/routes/news.yml"
+    prefix:   /news
+
+BikerBackendBundle_Gallery:
+    resource:   "@BikerBackendBundle/Resources/config/routes/gallery.yml"
+    prefix:   /gallery
+
+BikerBackendBundle_Radio:
+    resource:   "@BikerBackendBundle/Resources/config/routes/radio.yml"
+    prefix:   /radio
+                
+BikerBackendBundle_User:
+    resource:   "@BikerBackendBundle/Resources/config/routes/user.yml"
+    prefix:   /user
+
+BikerBackendBundle_Booking:
+    resource:   "@BikerBackendBundle/Resources/config/routes/booking.yml"
+    prefix:   /booking
+
+BikerBackendBundle_Analytics:
+    resource:   "@BikerBackendBundle/Resources/config/routes/analytics.yml"
+    prefix:   /analytics
+    
+BikerBackendBundle_Orders:
+    resource:   "@BikerBackendBundle/Resources/config/routes/orders.yml"
+    prefix:   /orders
+    
+BikerBackendBundle_Language:
+    resource:   "@BikerBackendBundle/Resources/config/routes/language.yml"
+    prefix:   /language

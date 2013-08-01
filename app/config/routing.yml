@@ -1,0 +1,11 @@
+biker_backend:
+    resource: "@BikerBackendBundle/Resources/config/routing.yml"
+    prefix:   /
+
+hn_cms_user:
+    resource: "@HNcmsUserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+hn_cms_test:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register

@@ -1,0 +1,7 @@
+parameters:
+#    biker_backend.example.class: Biker\BackendBundle\Example
+
+services:
+#    biker_backend.example:
+#        class: %biker_backend.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

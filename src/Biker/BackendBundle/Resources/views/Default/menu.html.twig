@@ -1,0 +1,66 @@
+<div id="stream">
+	{% block main_menu %}
+    <div class="con">
+        <div class="tile" id="hello">
+            <h2><span>Hi,</span> Jacques</h2>
+            <p>You last visited <strong>two hours</strong> ago</p>
+            <ul class="nav">
+                <li>
+                    <a href="#home">u</a>
+                </li>
+                <li>
+                    <a href="#icons">u</a>
+                </li>
+                <li>
+                    <a href="#settings">u</a>
+                </li>
+                <li>
+                    <a href="#more">u</a>
+                </li>
+            </ul>
+        </div>
+        <a class="tile" href="{{ url('BikerBackendBundle_Menu_show') }}"
+        	{% if app.request.attributes.get('_route') == 'BikerBackendBundle_Menu_show' %}class="active"{% endif %}
+        >
+            <span class="vector">u</span>
+            <span class="title"><strong>Menu</strong></span>
+            <span class="desc"><strong>Menu</strong> management</span>
+        </a>
+        <a class="tile" href="{{ url('BikerBackendBundle_Loyalty_show') }}"
+        	{% if app.request.attributes.get('_route') == 'BikerBackendBundle_Loyalty_show' %}class="active"{% endif %}
+        >
+            <span class="vector count" data-count="4">u</span>
+            <span class="title"><strong>Loyalty</strong> </span>
+            <span class="desc"><strong>Loyalty</strong> management</span>
+        </a>
+        <a class="tile" href="{{ url('BikerBackendBundle_Coupons_show') }}"
+        	{% if app.request.attributes.get('_route') == 'BikerBackendBundle_Coupons_show' %}class="active"{% endif %}
+        >
+            <span class="vector">u</span>
+            <span class="title"><strong>Coupons</strong></span>
+            <span class="desc"><strong>Coupons</strong> management</span>
+        </a>
+        <a class="tile" href="{{ url('BikerBackendBundle_News_show') }}"
+        	{% if app.request.attributes.get('_route') == 'BikerBackendBundle_News_show' %}class="active"{% endif %}
+        >
+            <span class="vector">u</span>
+            <span class="title"><strong>News</strong></span>
+            <span class="desc"><strong>News</strong> management</span>
+        </a>
+        <a class="tile" href="{{ url('BikerBackendBundle_Gallery_show') }}"
+        	{% if app.request.attributes.get('_route') == 'BikerBackendBundle_Gallery_show' %}class="active"{% endif %}
+        >
+            <span class="vector">u</span>
+            <span class="title"><strong>Gallery</strong></span>
+            <span class="desc"><strong>Gallery</strong> management</span>
+        </a>
+        <a class="tile" href="{{ url('BikerBackendBundle_Radio_show') }}"
+        	{% if app.request.attributes.get('_route') == 'BikerBackendBundle_Radio_show' %}class="active"{% endif %}
+        >
+            <span class="vector">u</span>
+            <span class="title"><strong>Radio</strong></span>
+            <span class="desc"><strong>Radio</strong> management</span>
+        </a>
+    </div>
+    {% endblock %}
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	{% block title %}
+	<title>Dashboard</title>
+	{% endblock %}
+	
+	{% block stylesheet_top %}
+	<link rel="stylesheet" href="{{ asset('backend/stylesheets/app.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/stylesheets/custom.css') }}">
+	{% endblock %}
+	
+	{% block javascript_top %}
+{# 	<script src="{{ asset('backend/scripts/library.js') }}"></script>#}
+{# 	<script src="{{ asset('backend/scripts/base.js') }}"></script>#}
+{# 	<script src="{{ asset('backend/scripts/chart.js') }}"></script>#}
+{# 	<script src="{{ asset('backend/scripts/initialize.js') }}"></script>#}
+{# 	<script src="{{ asset('backend/scripts/custom.js') }}"></script>#}
+	{% endblock %}
+</head>
+<body>
+	<div id="header">
+		{% block header %}
+	    <ul class="con">
+	        <li class="dashboard">
+	            <a href="#home">Dashboard</a>
+	        </li>
+	        <li class="count indicator">
+	            <span data-count="8">Notifications</span>
+	        </li>
+	        <li class="messages">
+	            <span>Messages</span>
+	        </li>
+	        <li class="avatar">
+	            <img src="{{ asset('backend/demo/avatar.jpg') }}" alt="avatar" />
+	        </li>
+	        <li class="search">
+	            <input type="text" placeholder="Search" />
+	        </li>
+	    </ul>
+	    {% endblock %}
+	</div>
+	{% include 'BikerBackendBundle:Default:menu.html.twig' %}
+	<div id="dashboard">
+		{% block main_container %}
+	    <div class="scroll con">
+	    	{% include 'BikerBackendBundle:Default:leftnav.html.twig' %}
+			<div class="main-content">
+				{% block main_content %}
+					
+				{% endblock %}
+			</div>
+	    </div>
+		{% endblock %}
+	</div>
+	<div id="footer">
+		{% block footer %}
+	    <div class="con">
+	        <h4>Pastel</h4>
+	    </div>
+	    {% endblock %}
+	</div>
+</body>
+</html>
