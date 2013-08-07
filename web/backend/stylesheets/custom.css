@@ -2,6 +2,24 @@
  * @author: Hoang Nhien <hoangnhien137@gmail.com>
  *
  */
+ 
+/* micro clearfix: http://nicolasgallagher.com/micro-clearfix-hack/ */
+/* For modern browsers */
+.clearfix:before,
+.clearfix:after {
+    content:"";
+    display:table;
+}
+
+.clearfix:after {
+    clear:both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.clearfix {
+    zoom:1;
+}
+
 
 /* temp: have to remove */
 #overlays { display: none; }
@@ -103,4 +121,87 @@ div.main-content > div {
 }
 div.main-content > div.padding {
 	padding: 0;	
+}
+
+/*=======================================================================*/
+/* Login */
+/*=======================================================================*/
+#login-form {
+	display: block;
+}
+
+/*=======================================================================*/
+/* Form */
+/*=======================================================================*/
+div > input[type="text"] {
+	margin: 3px 0;
+}
+#add-menu-form {
+	display: none;
+}
+/* Menu */
+#current-menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#current-menu li {
+	width: 90%;
+	line-height: 30px;	
+}
+#current-menu .single-menu {
+	margin-top: 30px;
+}
+
+#current-menu li .menu-collapse {
+	background: #ccc;
+	margin: 5px 0;
+	padding: 0 30px;
+}
+
+#current-menu .remove {
+	cursor:pointer;
+	float: right; 
+}
+#current-menu .current-items{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.current-items .item-title {
+	text-decoration: none;
+}
+.current-items .item-action {
+	width: 150px;
+	float: right;
+}
+#current-menu .current-items li {
+	width: 500px;
+	border: solid 1px #ccc;
+	border-radius: 5px;
+	padding: 0 30px;
+	margin: 5px 0;	
+}
+.hide-content {
+	display: none;
+}
+.dynamic-form {
+	display: none;
+}
+.menu-expand {
+	display: none;
+}
+.single-menu.active .menu-expand {
+	display: block;
+}
+.default-padding {
+	padding: 30px;
+}
+.customer-users,
+.admin-users {
+	padding-top: 30px;
+}
+.customer-users h2,
+.admin-users h2 {
+	padding: 0 0 0 30px;
 }

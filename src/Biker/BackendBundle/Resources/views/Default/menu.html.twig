@@ -2,8 +2,13 @@
 	{% block main_menu %}
     <div class="con">
         <div class="tile" id="hello">
-            <h2><span>Hi,</span> Jacques</h2>
-            <p>You last visited <strong>two hours</strong> ago</p>
+            <h2><span>Hi,</span> {{ app.user.username }}
+            </h2>
+            <p>
+            	<strong>
+            	{{ app.user.getHighestRole() }}
+            	</strong>
+            </p>
             <ul class="nav">
                 <li>
                     <a href="#home">u</a>

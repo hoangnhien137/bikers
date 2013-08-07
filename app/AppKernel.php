@@ -16,14 +16,11 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new HNcms\UserBundle\HNcmsUserBundle(),
-			new FOS\UserBundle\FOSUserBundle(),
-            //new HNizWorks\FrontendBundle\HNizWorksFrontendBundle(),
-            //new HNizWorks\BackendBundle\HNizWorksBackendBundle(),
-            //new HNcms\ProjectBundle\HNcmsProjectBundle(),
-            //new HNcms\FinanceBundle\HNcmsFinanceBundle(),
-            //new HNcms\MessageBundle\HNcmsMessageBundle(),
-            new Biker\BackendBundle\BikerBackendBundle(),
+        	new FOS\UserBundle\FOSUserBundle(),
+        	new HNcms\UserBundle\HNcmsUserBundle(),
+			new Biker\BackendBundle\BikerBackendBundle(),
+            new Biker\CmsBundle\BikerCmsBundle(),
+            new Biker\ApiBundle\BikerApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

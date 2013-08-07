@@ -1,0 +1,3 @@
+Biker_ApiBundle_Show:
+    pattern:  /
+    defaults: { _controller: BikerApiBundle:Api:index }

@@ -22,7 +22,7 @@
 		"friendsofsymfony/user-bundle": "~2.0@dev",
 		"symfony/intl": "2.3.*@dev",
         "doctrine/mongodb-odm": "1.0.*@dev",
-        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev",
     },
     "scripts": {
         "post-install-cmd": [

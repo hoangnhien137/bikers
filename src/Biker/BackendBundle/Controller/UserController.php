@@ -12,6 +12,24 @@ class UserController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BikerBackendBundle:User:index.html.twig');
+    	$user = $this->container->get('security.context')->getToken()->getUser();
+    	$iBranch = $user->getBranch();
+    	if(empty($iBranch)){
+    		return $this->_errorResponse('Empty Branch');
+    	}
+    	$em = $this->getDoctrine()->getManager();
+    	$aUsers = $em->getRepository('HNcmsUserBundle:User')
+    	->findBy(array('branch' => $iBranch));
+    	
+    	$aCustomers = $em->getRepository('BikerCmsBundle:Customer')
+    	->findBy(array('branch' => $iBranch));
+    	
+        return $this->render('BikerBackendBundle:User:index.html.twig', array(
+        		'aUsers' => $aUsers,
+        		'aCustomers' => $aCustomers
+        		));
+    }
+    private function _errorResponse($sMessage = 'unknow'){
+    	return new Response('Error: ' . $sMessage);
     }
 }

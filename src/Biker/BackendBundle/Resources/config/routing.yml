@@ -6,6 +6,10 @@ BikerBackendBundle_Dashboard:
     resource:   "@BikerBackendBundle/Resources/config/routes/dashboard.yml"
     prefix:   /dashboard
 
+BikerBackendBundle_Ajax:
+    resource:   "@BikerBackendBundle/Resources/config/routes/ajax.yml"
+    prefix:   /ajax
+    
 BikerBackendBundle_Menu:
     resource:   "@BikerBackendBundle/Resources/config/routes/menu.yml"
     prefix:   /menu

@@ -1,14 +1,113 @@
 {% extends "BikerBackendBundle::layout.html.twig" %}
 {% block main_content %}
-<div id="page-menu">
-	<button class="adrift glyph write"><span>Add new</span> Menu</button>
-	<form id="demo" class="content">
-		<p>
-			<input id="username" type="text" placeholder="Username">
-		</p>
-		<input type="submit" value="Submit">
-	</form>
+<div id="page-menu padding">
+	<div class="container">
+		<div class="col_3">
+			<button id="add-menu-btn" class="adrift glyph write"><span>Add new</span> Menu</button>
+		</div>
+		<div class="col_9">
+			<form id="add-menu-form" class="dynamic-form" action="{{ url('BikerBackendBundle_Ajax_show') }}">
+				<input type="hidden" name="_action" value="addNewMenu" />
+				<div class="col_6">
+					<input name="_menu" id="_menu" type="text" placeholder="Menu Name">
+				</div>
+				<div class="col_6">
+					<input type="submit" value="Confirm">
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<h2>Current Menu</h2>
+		<ul id="current-menu">
+		{% if aMenu | length > 0 %}
+			{% for oMenu in aMenu %}
+				<li class="single-menu" data-menuid="{{ oMenu.getId() }}">
+					<div class="menu-collapse">
+						<span class="menu-title">{{ oMenu.getName() }}</span>
+						<span class="remove">x</span>
+					</div>
+					<div class="menu-expand">
+						<div class="container clearfix">
+							<div class="col_3">
+								<button class="add-item-btn">Add New Item</button>
+							</div>
+							<div class="col_9">
+								<form class="add-item-form dynamic-form" action="{{ url('BikerBackendBundle_Ajax_show') }}">
+									<input type="hidden" name="_action" value="addItem" />
+									<input type="hidden" name="_menuid" value="{{ oMenu.getId() }}" />
+									<div class="col_6">
+										<input name="_itemname" id="_itemname" type="text" placeholder="Item Name">
+									</div>
+									<div class="col_6">
+										<input type="submit" value="Confirm">
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						<ul class="current-items">
+							{% set aItems = oMenu.getItems() %}
+							{% if aItems | length > 0 %}
+								{% for oItem in aItems %}
+								<li "single-item">
+									<a class="item-title" href="#">{{ oItem.getName() }}</a>
+									<div class="item-action" data-itemid="{{ oItem.getId() }}">
+										<a class="edit-item" href="javascript:void(0);">Edit</a> / 
+										<a class="delete-item" href="javascript:void(0);">Delete</a> / 
+										<a class="disable-item" href="javascript:void(0);">Disable</a>	
+									</div>
+								</li>
+								{% endfor %}
+							{% endif %}
+						</ul>
+					</div>
+				</li>
+			{% endfor %}
+		{% endif %}
+		</ul>
+	</div>
 </div>
-
+<div id="clone-container" class="hide-content">
+<ul>
+	<li class="single-item">
+		<a class="item-title" href="#"></a>
+		<div class="item-action">
+			<a class="edit-item" href="javascript:void(0);">Edit</a> / 
+			<a class="delete-item" href="javascript:void(0);">Delete</a> / 
+			<a class="disable-item" href="javascript:void(0);">Disable</a>	
+		</div>
+	</li>
+</ul>
+<ul>
+<li class="single-menu">
+		<div class="menu-collapse">
+			<span class="menu-title"></span>
+			<span class="remove">x</span>
+		</div>
+		<div class="menu-expand">
+			<div class="container clearfix">
+				<div class="col_3">
+					<button class="add-item-btn">Add New Item</button>
+				</div>
+				<div class="col_9">
+					<form class="add-item-form dynamic-form">
+						<input type="hidden" name="_action" value="addItem" />
+						<input type="hidden" name="_menuid" value="" />
+						<div class="col_6">
+							<input name="_itemname" id="_itemname" type="text" placeholder="Item Name">
+						</div>
+						<div class="col_6">
+							<input type="submit" value="Confirm">
+						</div>
+					</form>
+				</div>
+			</div>
+			<ul class="current-items">
+			</ul>
+		</div>
+	</li>
+</ul>
+</div>
 
 {% endblock %}

@@ -1,0 +1,7 @@
+parameters:
+#    biker_cms.example.class: Biker\CmsBundle\Example
+
+services:
+#    biker_cms.example:
+#        class: %biker_cms.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -12,11 +12,14 @@
 	{% endblock %}
 	
 	{% block javascript_top %}
-{# 	<script src="{{ asset('backend/scripts/library.js') }}"></script>#}
+	<script>
+		var globalAjax = "{{ url('BikerBackendBundle_Ajax_show') }}";
+	</script>
+	<script src="{{ asset('backend/scripts/library.js') }}"></script>
 {# 	<script src="{{ asset('backend/scripts/base.js') }}"></script>#}
 {# 	<script src="{{ asset('backend/scripts/chart.js') }}"></script>#}
 {# 	<script src="{{ asset('backend/scripts/initialize.js') }}"></script>#}
-{# 	<script src="{{ asset('backend/scripts/custom.js') }}"></script>#}
+	<script src="{{ asset('backend/scripts/custom.js') }}"></script>
 	{% endblock %}
 </head>
 <body>
@@ -44,7 +47,7 @@
 	{% include 'BikerBackendBundle:Default:menu.html.twig' %}
 	<div id="dashboard">
 		{% block main_container %}
-	    <div class="scroll con">
+	    <div class="scroll con clearfix">
 	    	{% include 'BikerBackendBundle:Default:leftnav.html.twig' %}
 			<div class="main-content">
 				{% block main_content %}
@@ -61,5 +64,7 @@
 	    </div>
 	    {% endblock %}
 	</div>
+	{% block javascript_bottom %}
+	{% endblock %}
 </body>
 </html>

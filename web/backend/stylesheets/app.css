@@ -2233,7 +2233,7 @@ body.welcome #notifications {
 	height: 130px;
 	margin-top: -65px;
 }
-#password {
+#login-form {
 	position: absolute; 
 	width: 400px; 
 	height: 166px; 
@@ -2243,11 +2243,11 @@ body.welcome #notifications {
 	margin-left: -200px;
 	display: none;
 }
-#password .input {
+#login-form .input {
 	border: 1px solid #555;
 	background: rgba(0,0,0,0.3);
 }
-#password button {
+#login-form button {
 	width: 100%;
 	margin-top: 20px;
 	height: 45px;
@@ -2265,17 +2265,17 @@ body.welcome #notifications {
 	background-color: #FFD000;
 	cursor: pointer;
 }
-#password button:hover {
+#login-form button:hover {
 	background-image: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
 	background-image: -moz-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
 }
-#password input {
+#login-form input {
 	color: white;
 }
-#password .username input {
+#login-form .username input {
 	font-weight: bold;
 }
-#password .username {
+#login-form .username {
 	-moz-border-radius-topleft: 4px;
 	-moz-border-radius-topright: 4px;
 	-webkit-border-top-left-radius: 4px;
@@ -2286,7 +2286,7 @@ body.welcome #notifications {
 	padding-right: 53px;
 	box-shadow: rgba(0,0,0,0.4) 0px 6px 6px -6px inset;
 }
-#password .password {
+#login-form .password {
 	-moz-border-radius-bottomleft: 4px;
 	-moz-border-radius-bottomright: 4px;
 	-webkit-border-bottom-left-radius: 4px;
@@ -2294,7 +2294,7 @@ body.welcome #notifications {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 }
-#password a.back {
+#login-form a.back {
 	position: absolute;
 	top: 0px;
 	left: -40px;
@@ -2307,7 +2307,7 @@ body.welcome #notifications {
 	opacity: 0.5;
 	display: block;
 }
-#password a.back:hover {
+#login-form a.back:hover {
 	opacity: 1;
 }
 #avatars {
@@ -9457,12 +9457,12 @@ body.feather .map .caption {
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
 	}
-	#password {
+	#login-form {
 		width: 90%;
 		margin-left: -45%;
 	}
 	
-	#password a.back {
+	#login-form a.back {
 		left: 0px;
 		top: -40px;
 	}

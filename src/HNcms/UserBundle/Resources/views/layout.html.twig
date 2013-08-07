@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, width=device-width" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="{{ asset('backend/stylesheets/app.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/stylesheets/custom.css') }}">
+	<script src="{{ asset('backend/scripts/library.js') }}"></script>
+	<script src="{{ asset('backend/scripts/app.js') }}"></script>
+	<script src="{{ asset('backend/scripts/initialize.js') }}"></script>
+	
+</head>
+<body>
+	<!--Log in screen-->
+	<div id="welcome">
+		{% block fos_user_content %}
+        {% endblock fos_user_content %}
+	</div>
+</body>
+</html>

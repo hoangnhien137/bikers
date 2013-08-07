@@ -1,7 +1,7 @@
 {% block leftnav %}
 <ul class="leftnav">
 	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_Analytics_show' %}class="current"{% endif %}>
-		<a href="{{ url('BikerBackendBundle_Analytics_show') }}">Users</a>
+		<a href="{{ url('BikerBackendBundle_Analytics_show') }}">Analytics</a>
 	</li>
 	<li {% if app.request.attributes.get('_route') == 'BikerBackendBundle_User_show' %}class="current"{% endif %}>
 		<a href="{{ url('BikerBackendBundle_User_show') }}">Users</a>

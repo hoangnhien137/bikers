@@ -1,0 +1,7 @@
+parameters:
+#    biker_api.example.class: Biker\ApiBundle\Example
+
+services:
+#    biker_api.example:
+#        class: %biker_api.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
