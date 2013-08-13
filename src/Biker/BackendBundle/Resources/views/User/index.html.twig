@@ -2,12 +2,14 @@
 {% block main_content %}
 <div id="page-user" class="padding">
 	<div class="admin-users">
-		<h2>Users</h2>
-		<div class="container clearfix default-padding">
-			<div class="col_3">
-				<button class="add-user-btn">Add New User</button>
+		<div class="container default-padding">
+			<div class="col_6">
+				<h2>Users</h2>
 			</div>
-			<div class="col_9">
+			<div class="cold_6">
+				<button class="add-user-btn pull-right">Add New User</button>
+			</div>
+			<div class="col_12">
 				<form class="add-user-form dynamic-form" action="#">
 					<input type="hidden" name="_action" value="addUser" />
 					<p><input name="_username" type="text" placeholder="User Name" /></p>
@@ -15,16 +17,18 @@
 					<p><input name="_password" type="password" /></p>
 					<p>
 						<select name="_role">
-							<option value="ROLE_BRANCH_MANAGER">Branch Manager</option>
 							<option value="ROLE_PERSONEL">Personel</option>
 							<option value="ROLE_THIRD_PARTY">Third Party</option>
 						</select>
 					</p>
-					<input type="submit" value="Confirm">
-					
-				</form>
+					<p class="combine">
+						<button class="sugar" type="submit">Submit</button>
+						<button class="green cancel-add-user-btn">Cancel</button>
+					</p>
+				</form>	
 			</div>
 		</div>
+		
 		<table class="table-users">
 			<thead>
 				<tr>
@@ -42,9 +46,9 @@
 							<td class="col-email">{{ oUser.getEmail() }}</td>
 							<td class="col-highestrole">{{ oUser.getHighestRole() }}</td>
 							<td class="col-actions">
-								<a class="edit-item" href="javascript:void(0);">Edit</a> / 
-								<a class="delete-item" href="javascript:void(0);">Delete</a> / 
-								<a class="disable-item" href="javascript:void(0);">Disable</a>
+								<a class="edit-item" href="javascript:void(0);"><span class="icon">8</span></a> 
+								<a class="delete-item" href="javascript:void(0);"><span class="icon">X</span></a> 
+								<a class="disable-item" href="javascript:void(0);"><span class="icon">\</span></a>
 							</td>
 						</tr>	
 					{% endfor %}
@@ -54,21 +58,27 @@
 		</table>
 	</div>
 	<div class="customer-users">
-		<h2>Customers</h2>
-		<div class="container clearfix default-padding">
-			<div class="col_3">
-				<button class="add-customer-btn">Add New Customer</button>
+		<div class="container default-padding clearfix">
+			<div class="col_6">
+				<h2>Customers</h2>
 			</div>
-			<div class="col_9">
+			<div class="col_6">
+				<button class="add-customer-btn pull-right">Add New Customer</button>
+			</div>
+			<div class="col_12">
 				<form class="add-customer-form dynamic-form" action="#">
 					<input type="hidden" name="_action" value="addCustomer" />
 					<p><input name="_username" type="text" placeholder="User Name" /></p>
 					<p><input name="_email" type="text" placeholder="Email" /></p>
 					<p><input name="_password" type="password" /></p>
-					<input type="submit" value="Confirm">
+					<p class="combine">
+						<button class="sugar" type="submit">Submit</button>
+						<button class="green cancel-add-customer">Cancel</button>
+					</p>
 				</form>
 			</div>
 		</div>
+		
 		<table class="table-customers">
 			<thead>
 				<tr>
@@ -84,9 +94,9 @@
 							<td class="col-username">{{ oCustomer.getUsername() }}</td>
 							<td class="col-email">{{ oCustomer.getEmail() }}</td>
 							<td class="col-actions">
-								<a class="edit-item" href="javascript:void(0);">Edit</a> / 
-								<a class="delete-item" href="javascript:void(0);">Delete</a> / 
-								<a class="disable-item" href="javascript:void(0);">Disable</a>
+								<a class="edit-item" href="javascript:void(0);"><span class="icon">8</span></a>
+								<a class="delete-item" href="javascript:void(0);"><span class="icon">X</span></a> 
+								<a class="disable-item" href="javascript:void(0);"><span class="icon">\</span></a>
 							</td>
 						</tr>	
 					{% endfor %}
@@ -103,9 +113,9 @@
 		<td class="col-email"></td>
 		<td class="col-highestrole"></td>
 		<td class="col-actions">
-			<a class="edit-item" href="javascript:void(0);">Edit</a> / 
-			<a class="delete-item" href="javascript:void(0);">Delete</a> / 
-			<a class="disable-item" href="javascript:void(0);">Disable</a>
+			<a class="edit-item" href="javascript:void(0);"><span class="icon">8</span></a> 
+			<a class="delete-item" href="javascript:void(0);"><span class="icon">X</span></a> 
+			<a class="disable-item" href="javascript:void(0);"><span class="icon">\</span></a>
 		</td>
 	</tr>	
 </table>
@@ -114,9 +124,9 @@
 		<td class="col-username"></td>
 		<td class="col-email"></td>
 		<td class="col-actions">
-			<a class="edit-item" href="javascript:void(0);">Edit</a> / 
-			<a class="delete-item" href="javascript:void(0);">Delete</a> / 
-			<a class="disable-item" href="javascript:void(0);">Disable</a>
+			<a class="edit-item" href="javascript:void(0);"><span class="icon">8</span></a> 
+			<a class="delete-item" href="javascript:void(0);"><span class="icon">X</span></a> 
+			<a class="disable-item" href="javascript:void(0);"><span class="icon">\</span></a>
 		</td>
 	</tr>	
 </table>

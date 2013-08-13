@@ -14,6 +14,8 @@ class ApiController extends Controller
 		$sAction = $this->get('request')->get('action');
 		$sActionList = array(
 			'login',
+			'getMenu',
+			'getLanguageList',
 		);
 		if(in_array($sAction, $sActionList)){
 			return $this->$sAction();
@@ -21,7 +23,13 @@ class ApiController extends Controller
 			return $this->getResponse(false, null, 'Missing action', 200);
 		}
     }
-
+    
+    private function _getBaseUrl(){
+    	$request = $this->get('request');
+    	$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+    	return $baseurl;
+    }
+    
 	/* RestAPI Function */
 	private function getStatusMessage($sStatus){
 		$aStatusList = array(
@@ -91,7 +99,11 @@ class ApiController extends Controller
 			'login' => array(
 				'email',
 				'password',
-			)
+			),
+			'getMenu' => array(
+				'language_id',
+				'branch_id'
+			),
 		);
 
 		if(!empty($aRequires[$sAction])){
@@ -132,5 +144,77 @@ class ApiController extends Controller
 		} else {
 			$this->getResponse(false, null, 'Wrong Method', 200);
 		}
+	}
+	
+	protected function getMenu(){
+		$sMethod = $this->get('request')->getMethod();
+	
+		if($sMethod == 'GET'){
+			$sValidate = $this->validateInput('getMenu');
+	
+			if($sValidate == 1){
+				$em = $this->getDoctrine()->getManager();
+				$oBranch = $em->getRepository('BikerCmsBundle:Branch')
+				->find($this->get('request')->get('branch_id'));
+				if(!empty($oBranch)){
+					$aResults = array();
+					$aMenus = $oBranch->getMenus();
+					if(!empty($aMenus)){
+						foreach($aMenus as $oMenu){
+							$aMenuSingle = array(
+									'id' => $oMenu->getId(),
+									'name' => $oMenu->getName(),
+									);
+							
+							$aItemCa = array();
+							$aItems = $oMenu->getItems();
+							if(!empty($aItems)){
+								foreach($aItems as $oItem){
+									if($oItem->getEnabled()){
+										$sImage = $oItem->getImage();
+										if(!empty($sImage)){
+											$sImage = $this->_getBaseUrl().'/upload/'.$sImage;
+										}
+										$aItemSingle = array(
+												'id' => $oItem->getId(),
+												'name' => $oItem->getName(),
+												'price' => $oItem->getPrice(),
+												'description' => $oItem->getDescription(),
+												'image' => $sImage,
+										);
+										$aItemCa[] = $aItemSingle;
+									}
+								}
+							}
+							$aMenuSingle['items'] = $aItemCa; 
+							$aResults[] = $aMenuSingle;
+						}	
+					}
+					$this->getResponse(true, $aResults, 'Get Menu Success', 200);
+				} else {
+					$this->getResponse(false, null, 'Branch Not Found!', 200);
+				}
+			} else {
+				$this->getResponse(false, null, $sValidate, 200);
+			}
+		} else {
+			$this->getResponse(false, null, 'Wrong Method!', 200);
+		}
+	}
+
+	protected function getLanguageList(){
+		$aLanguage = array(
+			array(
+				'id' => 1,
+				'name' => 'English',
+				'language_code' => 'en'
+			),
+			array(
+				'id' => 2,
+				'name' => 'Arabic',
+				'language_code' => 'ar'
+			)
+		);
+		$this->getResponse(true, $aLanguage, 'Get Language List Success!', 200);
 	}
 }

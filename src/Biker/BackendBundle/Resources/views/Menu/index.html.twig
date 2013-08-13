@@ -1,12 +1,15 @@
 {% extends "BikerBackendBundle::layout.html.twig" %}
 {% block main_content %}
-<div id="page-menu padding">
+<div id="page-menu">
 	<div class="container">
-		<div class="col_3">
-			<button id="add-menu-btn" class="adrift glyph write"><span>Add new</span> Menu</button>
+		<div class="col_6">
+			<h2>Current Category Menu</h2>
 		</div>
-		<div class="col_9">
-			<form id="add-menu-form" class="dynamic-form" action="{{ url('BikerBackendBundle_Ajax_show') }}">
+		<div class="col_6">
+			<button id="add-menu-btn" class="pull-right"><span>Add new</span> Menu Category</button>
+		</div>
+		<div class="col_12">
+			<form id="add-menu-form" class="dynamic-form clearfix">
 				<input type="hidden" name="_action" value="addNewMenu" />
 				<div class="col_6">
 					<input name="_menu" id="_menu" type="text" placeholder="Menu Name">
@@ -18,44 +21,82 @@
 		</div>
 	</div>
 	<div class="container">
-		<h2>Current Menu</h2>
 		<ul id="current-menu">
 		{% if aMenu | length > 0 %}
 			{% for oMenu in aMenu %}
 				<li class="single-menu" data-menuid="{{ oMenu.getId() }}">
 					<div class="menu-collapse">
 						<span class="menu-title">{{ oMenu.getName() }}</span>
-						<span class="remove">x</span>
+						<span class="remove icon">X</span>
 					</div>
 					<div class="menu-expand">
 						<div class="container clearfix">
-							<div class="col_3">
-								<button class="add-item-btn">Add New Item</button>
-							</div>
-							<div class="col_9">
-								<form class="add-item-form dynamic-form" action="{{ url('BikerBackendBundle_Ajax_show') }}">
-									<input type="hidden" name="_action" value="addItem" />
-									<input type="hidden" name="_menuid" value="{{ oMenu.getId() }}" />
-									<div class="col_6">
-										<input name="_itemname" id="_itemname" type="text" placeholder="Item Name">
-									</div>
-									<div class="col_6">
-										<input type="submit" value="Confirm">
-									</div>
-								</form>
-							</div>
+							<button class="add-item-btn white">Add New Item</button>
+							<form class="add-item-form dynamic-form" action="{{ url('BikerBackendBundle_Ajax_show') }}">
+								<input type="hidden" name="_action" value="addItem" />
+								<input type="hidden" name="_menuid" value="{{ oMenu.getId() }}" />
+								<p><input name="_itemname" type="text" placeholder="Item Name" required></p>
+								<p><input name="_itemprice" type="text" placeholder="Price" required></p>
+								<p>
+									<input type="file" name="_itemimage" data-text="Choose an <strong>image</strong>" />
+								</p>
+								<p>
+									<textarea name="_itemdescription">Item Description</textarea>
+								</p>
+								<p class="combine">
+									<button class="sugar" type="submit">Submit</button>
+									<button class="green cancel-add-item">Cancel</button>
+								</p>
+							</form>
 						</div>
 						
 						<ul class="current-items">
 							{% set aItems = oMenu.getItems() %}
 							{% if aItems | length > 0 %}
 								{% for oItem in aItems %}
-								<li "single-item">
-									<a class="item-title" href="#">{{ oItem.getName() }}</a>
-									<div class="item-action" data-itemid="{{ oItem.getId() }}">
-										<a class="edit-item" href="javascript:void(0);">Edit</a> / 
-										<a class="delete-item" href="javascript:void(0);">Delete</a> / 
-										<a class="disable-item" href="javascript:void(0);">Disable</a>	
+								<li class="single-item" data-itemid="{{ oItem.getId() }}">
+									<div class="item-collapse">
+										<a class="item-title" href="javascript:void(0);">{{ oItem.getName() }}</a>
+										<div class="item-action" data-itemid="{{ oItem.getId() }}">
+											<a title="Edit" class="edit-item" href="javascript:void(0);"><span class="icon">8</span></a> 
+											<a title="Delete" class="delete-item" href="javascript:void(0);"><span class="icon">X</span></a> 
+											<a title="Disable" class="disable-item {% if oItem.getEnabled() == false %}disable{% endif %}" href="javascript:void(0);"><span class="icon">\</span></a>	
+										</div>
+									</div>
+									<div class="item-expand">
+										<form class="edit-item-form" action="#">
+											<input type="hidden" name="_action" value="editItem" />
+											<input type="hidden" name="_menuid" value="{{ oMenu.getId() }}" />
+											<input type="hidden" name="_itemid" value="{{ oItem.getId() }}" />
+											<p><input name="_itemname" type="text" placeholder="Item Name" value="{{ oItem.getName() }}" required></p>
+											<p><input name="_itemprice" type="text" placeholder="Price" value="{{ oItem.getPrice() }}" required></p>
+											<div class="container">
+												<div class="col_4">
+													{% set sImage = oItem.getImage() %}
+													{% if sImage | length > 0 %}
+														<div class='item-image-preview'><img src="{{ asset('upload/'~sImage) }}" alt="{{ oItem.getName() }}" /></div>
+													{% else %}
+														<div class='item-image-preview'>No Image</div>
+													{% endif %}	
+												</div>
+												<div class="span_8">
+													<p>
+														<input type="file" name="_itemimage" data-text="{% if sImage | length > 0 %}{{ sImage }}{% else %}Choose an <strong>avatar</strong>{% endif %}" />
+													</p>
+													
+												</div>
+											</div>
+											
+											
+											<p>
+												<textarea name="_itemdescription">{{ oItem.getDescription() }}</textarea>
+											</p>
+											<p class="combine">
+											<!-- <input type="submit" value="Confirm"> -->
+											<button class="sugar" type="submit">Submit</button>
+											<button class="green cancel-edit-item">Cancel</button>
+											</p>
+										</form>
 									</div>
 								</li>
 								{% endfor %}
@@ -71,11 +112,42 @@
 <div id="clone-container" class="hide-content">
 <ul>
 	<li class="single-item">
-		<a class="item-title" href="#"></a>
-		<div class="item-action">
-			<a class="edit-item" href="javascript:void(0);">Edit</a> / 
-			<a class="delete-item" href="javascript:void(0);">Delete</a> / 
-			<a class="disable-item" href="javascript:void(0);">Disable</a>	
+		<div class="item-collapse">
+			<a class="item-title" href="javascript:void(0);"></a>
+			<div class="item-action">
+				<a title="Edit" class="edit-item" href="javascript:void(0);"><span class="icon">8</span></a> 
+				<a title="Delete" class="delete-item" href="javascript:void(0);"><span class="icon">X</span></a> 
+				<a title="Disable" class="disable-item" href="javascript:void(0);"><span class="icon">\</span></a>	
+			</div>
+		</div>
+		<div class="item-expand">
+			<form class="edit-item-form" action="#">
+				<input type="hidden" name="_action" value="editItem" />
+				<input type="hidden" name="_menuid" />
+				<input type="hidden" name="_itemid" />
+				<p><input name="_itemname" type="text" placeholder="Item Name" required></p>
+				<p><input name="_itemprice" type="text" placeholder="Price" required></p>
+				<div class="container">
+					<div class="col_4">
+						<div class='item-image-preview'>
+						</div>
+					</div>
+					<div class="span_8">
+						<p class="input-file-ca">
+						</p>
+						
+					</div>
+				</div>
+				
+				
+				<p>
+					<textarea name="_itemdescription"></textarea>
+				</p>
+				<p class="combine">
+				<button class="sugar" type="submit">Submit</button>
+				<button class="green cancel-edit-item">Cancel</button>
+				</p>
+			</form>
 		</div>
 	</li>
 </ul>
@@ -83,25 +155,27 @@
 <li class="single-menu">
 		<div class="menu-collapse">
 			<span class="menu-title"></span>
-			<span class="remove">x</span>
+			<span class="remove icon">X</span>
 		</div>
 		<div class="menu-expand">
 			<div class="container clearfix">
-				<div class="col_3">
-					<button class="add-item-btn">Add New Item</button>
-				</div>
-				<div class="col_9">
-					<form class="add-item-form dynamic-form">
-						<input type="hidden" name="_action" value="addItem" />
-						<input type="hidden" name="_menuid" value="" />
-						<div class="col_6">
-							<input name="_itemname" id="_itemname" type="text" placeholder="Item Name">
-						</div>
-						<div class="col_6">
-							<input type="submit" value="Confirm">
-						</div>
-					</form>
-				</div>
+				<button class="add-item-btn white">Add New Item</button>
+				<form class="add-item-form dynamic-form" action="#">
+					<input type="hidden" name="_action" value="addItem" />
+					<input type="hidden" name="_menuid" />
+					<p><input name="_itemname" type="text" placeholder="Item Name" required></p>
+					<p><input name="_itemprice" type="text" placeholder="Price" required></p>
+					<p class="input-file-ca">
+						
+					</p>
+					<p>
+						<textarea name="_itemdescription">Item Description</textarea>
+					</p>
+					<p class="combine">
+						<button class="sugar" type="submit">Submit</button>
+						<button class="green cancel-add-item">Cancel</button>
+					</p>
+				</form>
 			</div>
 			<ul class="current-items">
 			</ul>

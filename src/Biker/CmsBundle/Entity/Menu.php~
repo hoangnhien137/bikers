@@ -8,7 +8,7 @@ use Biker\CmsBundle\Entity\Branch;
 /**
  * Menu
  *
- * @ORM\Table()
+ * @ORM\Table(name="menu")
  * @ORM\Entity
  */
 class Menu
@@ -95,5 +95,45 @@ class Menu
     public function getBranch()
     {
         return $this->branch;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add items
+     *
+     * @param \Biker\CmsBundle\Entity\Item $items
+     * @return Menu
+     */
+    public function addItem(\Biker\CmsBundle\Entity\Item $items)
+    {
+        $this->items[] = $items;
+    
+        return $this;
+    }
+
+    /**
+     * Remove items
+     *
+     * @param \Biker\CmsBundle\Entity\Item $items
+     */
+    public function removeItem(\Biker\CmsBundle\Entity\Item $items)
+    {
+        $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 }

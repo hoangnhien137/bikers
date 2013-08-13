@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Item
  *
- * @ORM\Table()
+ * @ORM\Table(name="item")
  * @ORM\Entity
  */
 class Item
@@ -27,13 +27,46 @@ class Item
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="string", length=255, nullable=true)
+     */
+    private $price;
 
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+    
+    /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
+     */
+    protected $enabled;
+    
     /**
      * @ORM\ManyToOne (targetEntity="Menu", inversedBy="items")
      * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
      */
     private $menu;
+    
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="image", type="text", nullable=true)
+     */
+    private $image;
 
+    public function __construct()
+    {
+    	$this->enabled = true;
+    }
+    
     /**
      * Get id
      *
@@ -65,5 +98,120 @@ class Item
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set menu
+     *
+     * @param \Biker\CmsBundle\Entity\Menu $menu
+     * @return Item
+     */
+    public function setMenu(\Biker\CmsBundle\Entity\Menu $menu = null)
+    {
+        $this->menu = $menu;
+    
+        return $this;
+    }
+
+    /**
+     * Get menu
+     *
+     * @return \Biker\CmsBundle\Entity\Menu 
+     */
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return Item
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     * @return Item
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Item
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return Item
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

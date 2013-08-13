@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Coupons
  *
- * @ORM\Table()
+ * @ORM\Table(name="coupons")
  * @ORM\Entity
  */
 class Coupons

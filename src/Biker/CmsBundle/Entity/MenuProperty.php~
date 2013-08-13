@@ -5,12 +5,12 @@ namespace Biker\CmsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Booking
+ * MenuProperty
  *
- * @ORM\Table(name="booking")
+ * @ORM\Table()
  * @ORM\Entity
  */
-class Booking
+class MenuProperty
 {
     /**
      * @var integer
@@ -27,7 +27,18 @@ class Booking
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-
+	
+    /**
+     * @ORM\ManyToOne(targetEntity="Language")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     */
+    private $language;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Menu")
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     */
+    private $menu;
 
     /**
      * Get id
@@ -43,7 +54,7 @@ class Booking
      * Set name
      *
      * @param string $name
-     * @return Booking
+     * @return MenuProperty
      */
     public function setName($name)
     {

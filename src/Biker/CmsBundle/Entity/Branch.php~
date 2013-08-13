@@ -8,7 +8,7 @@ use Biker\CmsBundle\Entity\Menu;
 /**
  * Branch
  *
- * @ORM\Table()
+ * @ORM\Table(name="branch")
  * @ORM\Entity
  */
 class Branch
@@ -155,5 +155,38 @@ class Branch
     public function __toString()
     {
     	return strval($this->id);
+    }
+
+    /**
+     * Add customers
+     *
+     * @param \Biker\CmsBundle\Entity\Customer $customers
+     * @return Branch
+     */
+    public function addCustomer(\Biker\CmsBundle\Entity\Customer $customers)
+    {
+        $this->customers[] = $customers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove customers
+     *
+     * @param \Biker\CmsBundle\Entity\Customer $customers
+     */
+    public function removeCustomer(\Biker\CmsBundle\Entity\Customer $customers)
+    {
+        $this->customers->removeElement($customers);
+    }
+
+    /**
+     * Get customers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomers()
+    {
+        return $this->customers;
     }
 }

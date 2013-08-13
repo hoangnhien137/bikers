@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Customer
  *
- * @ORM\Table()
+ * @ORM\Table(name="customer")
  * @ORM\Entity
  */
 class Customer
@@ -125,5 +125,28 @@ class Customer
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Customer
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 }

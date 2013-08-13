@@ -5,12 +5,12 @@ namespace Biker\CmsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Item
+ * ItemProperty
  *
- * @ORM\Table(name="item")
+ * @ORM\Table(name="item_property")
  * @ORM\Entity
  */
-class Item
+class ItemProperty
 {
     /**
      * @var integer
@@ -27,45 +27,32 @@ class Item
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
+
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="string", length=255, nullable=true)
+     * @ORM\Column(name="price", type="string", length=255)
      */
     private $price;
 
     /**
-     * @var text
+     * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
-    
-    /**
-     * @var boolean
-     * 
-     * @ORM\Column(name="enabled", type="boolean", nullable=true)
-     */
-    protected $enabled;
-    
-    /**
-     * @ORM\ManyToOne (targetEntity="Menu", inversedBy="items")
-     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
-     */
-    private $menu;
-    
-    /**
-     * @var text
-     *
-     * @ORM\Column(name="image", type="text", nullable=true)
-     */
-    private $image;
 
-    public function __construct()
-    {
-    	$this->enabled = true;
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity="Language")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     */
+    private $language;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
+     */
+    private $item;
     
     /**
      * Get id
@@ -81,7 +68,7 @@ class Item
      * Set name
      *
      * @param string $name
-     * @return Item
+     * @return ItemProperty
      */
     public function setName($name)
     {
@@ -101,56 +88,10 @@ class Item
     }
 
     /**
-     * Set menu
-     *
-     * @param \Biker\CmsBundle\Entity\Menu $menu
-     * @return Item
-     */
-    public function setMenu(\Biker\CmsBundle\Entity\Menu $menu = null)
-    {
-        $this->menu = $menu;
-    
-        return $this;
-    }
-
-    /**
-     * Get menu
-     *
-     * @return \Biker\CmsBundle\Entity\Menu 
-     */
-    public function getMenu()
-    {
-        return $this->menu;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     * @return Item
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string 
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
      * Set price
      *
      * @param string $price
-     * @return Item
+     * @return ItemProperty
      */
     public function setPrice($price)
     {
@@ -173,7 +114,7 @@ class Item
      * Set description
      *
      * @param string $description
-     * @return Item
+     * @return ItemProperty
      */
     public function setDescription($description)
     {
@@ -193,25 +134,48 @@ class Item
     }
 
     /**
-     * Set enabled
+     * Set language
      *
-     * @param boolean $enabled
-     * @return Item
+     * @param \Biker\CmsBundle\Entity\Language $language
+     * @return ItemProperty
      */
-    public function setEnabled($enabled)
+    public function setLanguage(\Biker\CmsBundle\Entity\Language $language = null)
     {
-        $this->enabled = $enabled;
+        $this->language = $language;
     
         return $this;
     }
 
     /**
-     * Get enabled
+     * Get language
      *
-     * @return boolean 
+     * @return \Biker\CmsBundle\Entity\Language 
      */
-    public function getEnabled()
+    public function getLanguage()
     {
-        return $this->enabled;
+        return $this->language;
+    }
+
+    /**
+     * Set item
+     *
+     * @param \Biker\CmsBundle\Entity\Item $item
+     * @return ItemProperty
+     */
+    public function setItem(\Biker\CmsBundle\Entity\Item $item = null)
+    {
+        $this->item = $item;
+    
+        return $this;
+    }
+
+    /**
+     * Get item
+     *
+     * @return \Biker\CmsBundle\Entity\Item 
+     */
+    public function getItem()
+    {
+        return $this->item;
     }
 }

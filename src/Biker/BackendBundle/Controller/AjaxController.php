@@ -11,6 +11,7 @@ use HNcms\UserBundle\Entity\User;
 use Biker\CmsBundle\Entity\Menu;
 use Biker\CmsBundle\Entity\Item;
 use Biker\CmsBundle\Entity\Customer;
+use Biker\CmsBundle\Entity\Language;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -18,7 +19,27 @@ class AjaxController extends Controller
 {
     public function indexAction() {
     	$action = $this->get('request')->get('_action');
-    	return $this->$action();
+    	$aActionList = array(
+    			'addNewMenu',
+    			'removeMenu',
+    			'addItem',
+    			'editItem',
+    			'deleteItem',
+    			'toggleItemStatus',
+    			'addUser',
+    			'deleteUser',
+    			'addCustomer',
+    			'deleteCustomer',
+    			'addLanguage',
+    			'deleteLanguage',
+    			'editLanguage',
+    			'toggleLanguageStatus',
+    			);
+    	if(in_array($action,$aActionList)){
+    		return $this->$action();
+    	} else {
+    		return $this->_ajaxResponse(false, null, 'Action '.$action.' Not Found!');
+    	}
     }
     private function _ajaxResponse($bStatus = true, $aData = null, $sMessage = ''){
     	$aResponse = array(
@@ -27,6 +48,29 @@ class AjaxController extends Controller
     			'message' => $sMessage
     			);
     	return new Response(json_encode($aResponse));
+    }
+    
+    private function _getBaseUrl(){
+    	$request = $this->get('request');
+    	$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+    	return $baseurl;
+    }
+    
+    private function _uploadFile($aFile, $sOldFile = null){
+    	$sUploadDir = 'upload/';
+    	if( !is_dir($sUploadDir)) {
+    		mkdir($sUploadDir);
+    	}
+    	if(!empty($sOldFile)){
+    		@unlink($sUploadDir.$sOldFile);	
+    	}
+    	$sFileName = time(). $aFile['name'];
+    	move_uploaded_file( $aFile["tmp_name"], $sUploadDir .$sFileName);
+    	return $sFileName;
+    }
+    private function _deleteFile($sFile){
+    	$sUploadDir = 'upload/';
+    	@unlink($sUploadDir.$sFile);
     }
     protected function addNewMenu() {
     	$user = $this->container->get('security.context')->getToken()->getUser();
@@ -76,16 +120,82 @@ class AjaxController extends Controller
     		$oItem = new Item();
     		$oItem->setName($sItemName);
     		$oItem->setMenu($oMenu);
+    		$oItem->setDescription($this->get('request')->get('_itemdescription'));
+    		$oItem->setPrice($this->get('request')->get('_itemprice'));
+    		if(!empty($_FILES["_itemimagefile"])){
+    			$sFileName = $this->_uploadFile($_FILES["_itemimagefile"]);
+    			$oItem->setImage($sFileName);
+    		}
     		
     		$em->persist($oItem);
     		$em->flush();
+    		
+    		$sImage = $oItem->getImage();
+    		$sImgUrl = null;
+    		if(!empty($sImage)){
+    			$sImgUrl = $this->_getBaseUrl().'/upload/'. $sImage;
+    		}
     		$returnData = array(
     				'id' => $oItem->getId(),
-    				'name' => $oItem->getName()
+    				'name' => $oItem->getName(),
+    				'menuid' => $iMenuId,
+    				'price' => $oItem->getPrice(),
+    				'image' => $sImgUrl,
+    				'description' => $oItem->getDescription(),
     		);
-    		return $this->_ajaxResponse(true, $returnData, 'Added item id '. $oItem->getId());
+    		return $this->_ajaxResponse(true, $returnData, 'Added item id '. $oItem->getId()); 
     	}
     	return $this->_ajaxResponse(false, null, 'Missing Menu Id !');
+    }
+    
+    protected function editItem() {
+    	$iItemId = $this->get('request')->get('_itemid');
+    	$em = $this->getDoctrine()->getManager();
+    	$oItem = $em->getRepository('BikerCmsBundle:Item')
+    	->find($iItemId);
+    	if(empty($oItem)){
+    		return $this->_ajaxResponse(false, null, 'Item Not Found!');
+    	}
+    	$oItem->setName($this->get('request')->get('_itemname'));
+    	$oItem->setDescription($this->get('request')->get('_itemdescription'));
+    	$oItem->setPrice($this->get('request')->get('_itemprice'));
+    	if(!empty($_FILES["_itemimagefile"])){
+    		$sFileName = $this->_uploadFile($_FILES["_itemimagefile"], $oItem->getImage());
+    		$oItem->setImage($sFileName);
+    	}
+    	$em->persist($oItem);
+    	$em->flush();
+    	
+    	$sImage = $oItem->getImage();
+    	$sImgUrl = null;
+    	if(!empty($sImage)){
+    		$sImgUrl = $this->_getBaseUrl().'/upload/'. $sImage;
+    	}
+    	$returnData = array(
+    		'name' => $oItem->getName(),
+    		'image' => $sImgUrl,
+    	);
+    	
+    	return $this->_ajaxResponse(true, $returnData, 'Edit Success!');
+    }
+    
+    protected function toggleItemStatus() {
+    	$iItemId = $this->get('request')->get('_itemid');
+    	$em = $this->getDoctrine()->getManager();
+    	$oItem = $em->getRepository('BikerCmsBundle:Item')
+    	->find($iItemId);
+    	if(empty($oItem)){
+    		return $this->_ajaxResponse(false, null, 'Item Not Found!');
+    	}
+    	$bNewStatus = true;
+    	if($oItem->getEnabled() == true){
+    		$bNewStatus = false;
+    	}
+    	$oItem->setEnabled($bNewStatus);
+    	
+    	$em->persist($oItem);
+    	$em->flush();
+    	return $this->_ajaxResponse(true, array('enable'=>$bNewStatus), 'Edit Success!');
     }
     
     protected function deleteItem() {
@@ -96,8 +206,10 @@ class AjaxController extends Controller
     	if(empty($oItem)){
     		return $this->_ajaxResponse(false, null, 'Item Not Found !');
     	}
+    	$this->_deleteFile($oItem->getImage());
     	$em->remove($oItem);
     	$em->flush();
+    	
     	return $this->_ajaxResponse(true, null, 'Item is removed');
     }
     
@@ -216,4 +328,78 @@ class AjaxController extends Controller
     	return $this->_ajaxResponse(true, null, 'Customer is removed');
     }
     
+    /**
+     * function addLanguage
+     * Add new language
+     */
+    protected function addLanguage() {
+    	$user = $this->container->get('security.context')->getToken()->getUser();
+    	$em = $this->getDoctrine()->getManager();
+
+    	$sLanguageName = $this->get('request')->get('_languagename');
+    	$sLanguageCode = $this->get('request')->get('_languagecode');
+    	 
+    	$oLanguage = $em->getRepository('BikerCmsBundle:Language')
+    	->findOneBy(array(
+    			'language_code' => $sLanguageCode,
+    			));
+    	if(!empty($oLanguage)){
+    		return $this->_ajaxResponse(false, null, 'Language existed!');
+    	}
+    	
+    	$sHighestRole = $user->getHighestRole();
+    	// user must have ROLE_SUPPER_ADMIN
+    	if($sHighestRole == 'Branch Manager') {
+    		
+    		$oLanguage = new Language();
+    		$oLanguage->setName($sLanguageName);
+    		$oLanguage->setLanguageCode($sLanguageCode);
+    		
+    		$em->persist($oLanguage);
+    		$em->flush();
+    		
+    		$returnData = array(
+    				'id' => $oLanguage->getId(),
+    				'name' => $oLanguage->getName(),
+    				'code' => $oLanguage->getLanguageCode(),
+    		);
+    		return $this->_ajaxResponse(true, $returnData, 'Add new language success !');
+    	}
+    	return $this->_ajaxResponse(false, null, 'User do not have enough permission !');
+    }
+    
+    /**
+     * function delete Language
+     */
+    protected function deleteLanguage() {
+    	$iLanguageId = $this->get('request')->get('_languageid');
+    	$em = $this->getDoctrine()->getManager();
+    	$oLanguage = $em->getRepository('BikerCmsBundle:Language')
+    	->find($iLanguageId);
+    	if(empty($oLanguage)){
+    		return $this->_ajaxResponse(false, null, 'Language Not Found !');
+    	}
+    	$em->remove($oLanguage);
+    	$em->flush();
+    	return $this->_ajaxResponse(true, null, 'Language is removed');
+    }
+    
+    protected function toggleLanguageStatus() {
+    	$iLanguageId = $this->get('request')->get('_languageid');
+    	$em = $this->getDoctrine()->getManager();
+    	$oLanguage = $em->getRepository('BikerCmsBundle:Language')
+    	->find($iLanguageId);
+    	if(empty($oLanguage)){
+    		return $this->_ajaxResponse(false, null, 'Language Not Found !');
+    	}
+    	$bNewStatus = true;
+    	if($oLanguage->getEnabled() == true){
+    		$bNewStatus = false;
+    	}
+    	$oLanguage->setEnabled($bNewStatus);
+    	
+    	$em->remove($oLanguage);
+    	$em->flush();
+    	return $this->_ajaxResponse(true, array('enable'=>$bNewStatus), 'Toggled Status Success!');
+    }
 }

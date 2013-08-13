@@ -6219,7 +6219,7 @@ $.fn.modal = function(options) {
 		$(".particles").remove();
 	}
 	
-	$.getScript("http://localhost/hoangnhien/bikers/web/backend/scripts/three.js", function(){
+	$.getScript("static/scripts/three.js", function(){
 		if (!window.requestAnimationFrame) {
 		    window.requestAnimationFrame = (function () {
 		        return window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||

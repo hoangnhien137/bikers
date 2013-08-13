@@ -21,8 +21,44 @@
 }
 
 
+h1,h2,h3,h4,h5,h6 {
+	font-family: HelveticaNeue,Helvetica,Arial,sans-serif;
+}
+
+textarea  {
+	resize: vertical;
+}
+
+.pull-left { float: left; }
+.pull-right { float: right; }
+
+input[type="text"], input[type="password"], textarea {
+	height: 45px;
+}
+
+th {
+	border-top: 1px solid #8E9696;
+}
+tr:last-child td {
+    border-bottom: 1px solid #8E9696;
+}
+
 /* temp: have to remove */
 #overlays { display: none; }
+
+/* icon */
+.icon {
+	font-family: Icons;
+	font-size: 18px;
+	color: #4d6168;
+	text-shadow: white 0px 1px 0px;
+}
+a { 
+	text-decoration: none; 
+	 color: #333333;	
+}
+.icon:hover {	color: #FA3C5F; }
+
 
 /* #stream */
 #hello { width: 23%; }
@@ -133,30 +169,57 @@ div.main-content > div.padding {
 /*=======================================================================*/
 /* Form */
 /*=======================================================================*/
-div > input[type="text"] {
-	margin: 3px 0;
-}
-#add-menu-form {
-	display: none;
-}
+
+
+/*========================================================================*/
+/* Style for Menu - Item */
+
 /* Menu */
 #current-menu {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
-#current-menu li {
-	width: 90%;
-	line-height: 30px;	
+#current-menu > li {
+	width: 100%;
+	line-height: 30px;
+	
+	background: #FAFAFA;
+	position: relative;
+	background: -moz-linear-gradient(rgba(255,255,255,0.3), #FAFAFA);
+	background: -webkit-linear-gradient(rgba(255,255,255,0.3), #FAFAFA);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0px -45px 62px -62px inset, 0px 2px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px -45px 62px -62px inset, 0px 2px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: rgba(0, 0, 0, 0.2) 0px -45px 62px -62px inset, 0px 2px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.2);	
 }
 #current-menu .single-menu {
 	margin-top: 30px;
 }
 
 #current-menu li .menu-collapse {
-	background: #ccc;
-	margin: 5px 0;
-	padding: 0 30px;
+	font-size: 14px;
+	color: #6a6f76;
+	text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+	margin: 0px;
+	line-height: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.1));
+	background-image: -moz-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.1));
+	border-bottom: 1px solid #ccc;
+	-webkit-box-shadow: rgba(255,255,255,0.7) 0px 1px 0px inset, white 0px 1px 0px;
+	-moz-box-shadow: rgba(255,255,255,0.7) 0px 1px 0px inset, white 0px 1px 0px;
+	box-shadow: rgba(255,255,255,0.7) 0px 1px 0px inset, white 0px 1px 0px;
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+	-moz-border-radius-topright: 2px;
+	-moz-border-radius-topleft: 2px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	height: 40px;
 }
 
 #current-menu .remove {
@@ -172,16 +235,38 @@ div > input[type="text"] {
 	text-decoration: none;
 }
 .current-items .item-action {
-	width: 150px;
+	width: 100px;
 	float: right;
 }
 #current-menu .current-items li {
-	width: 500px;
 	border: solid 1px #ccc;
 	border-radius: 5px;
-	padding: 0 30px;
+	padding: 15px;
 	margin: 5px 0;	
 }
+a .icon{
+	padding: 0 5px;
+}
+
+.edit-item-form img {
+	max-width: 200px;
+	max-height: 200px;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #BBBBBB;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 1px 0 white, 0 4px 5px -5px rgba(0, 0, 0, 0.35) inset;
+}
+
+.item-expand {
+	display: none;
+}
+
+.disable .icon {
+	color: #ccc;
+}
+
+
 .hide-content {
 	display: none;
 }
@@ -190,18 +275,32 @@ div > input[type="text"] {
 }
 .menu-expand {
 	display: none;
+	padding: 20px;
 }
 .single-menu.active .menu-expand {
 	display: block;
 }
 .default-padding {
-	padding: 30px;
+	padding: 0 30px;
 }
 .customer-users,
 .admin-users {
 	padding-top: 30px;
 }
-.customer-users h2,
-.admin-users h2 {
-	padding: 0 0 0 30px;
+
+h2 {
+	line-height: 44px;
+}
+#add-menu-form {
+	margin-top: 30px;
+}
+td.col-actions {
+	text-align: center;
+}
+
+/****************************************************************************************
+ * Style for Language Page
+ ***************************************************************************************/
+div.main-content > div#page-language {
+	padding-top: 30px;
 }

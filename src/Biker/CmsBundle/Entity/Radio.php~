@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Radio
  *
- * @ORM\Table()
+ * @ORM\Table(name="radio")
  * @ORM\Entity
  */
 class Radio

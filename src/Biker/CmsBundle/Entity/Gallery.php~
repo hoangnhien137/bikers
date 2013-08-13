@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Gallery
  *
- * @ORM\Table()
+ * @ORM\Table(name="gallery")
  * @ORM\Entity
  */
 class Gallery
